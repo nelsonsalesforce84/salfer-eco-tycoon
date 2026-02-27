@@ -1,0 +1,9 @@
+backups/
+.trae/
+node_modules/
+.DS_Store
+*.zip
+.env
+.env.local
+.env.*.local
+!.env.example
