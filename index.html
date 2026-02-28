@@ -1776,8 +1776,9 @@
         }
 
         .puzzle-complete-image {
-            width: 74%;
+            height: 70%;
             aspect-ratio: 1 / 1;
+            flex-shrink: 0;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.38);
             background-position: center;
@@ -2023,6 +2024,18 @@
             color: var(--accent);
             text-transform: uppercase;
             opacity: 0.85;
+        }
+
+        .eco-awareness-main-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 16px;
+            border: 2px solid rgba(0, 255, 159, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            background-size: cover;
+            background-position: center;
+            margin: 0px 0 10px;
+            flex-shrink: 0;
         }
 
         .eco-awareness-title {
@@ -3606,6 +3619,161 @@
         .top-report-btn:hover {
             transform: scale(1.05);
             filter: brightness(1.2);
+        }
+
+        /* === GUMROAD SHOP BUTTON === */
+        .top-shop-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7c59f 100%);
+            color: #1a0800;
+            border: none;
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            min-width: 90px;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 0 14px rgba(255, 107, 53, 0.45);
+            animation: shop-btn-glow 2.5s ease-in-out infinite;
+        }
+
+        @keyframes shop-btn-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(255, 107, 53, 0.35);
+            }
+
+            50% {
+                box-shadow: 0 0 22px rgba(255, 107, 53, 0.75);
+            }
+        }
+
+        .top-shop-btn:hover {
+            transform: scale(1.07);
+            filter: brightness(1.15);
+        }
+
+        /* === KO-FI BUTTON === */
+        .top-kofi-btn {
+            background: linear-gradient(135deg, #29abe0 0%, #1a7fc1 100%);
+            color: #fff;
+            border: none;
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            min-width: 90px;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 0 12px rgba(41, 171, 224, 0.35);
+        }
+
+        .top-kofi-btn:hover {
+            transform: scale(1.07);
+            filter: brightness(1.15);
+            box-shadow: 0 0 22px rgba(41, 171, 224, 0.65);
+        }
+
+        /* === PROMO POPUP === */
+        .promo-popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999999;
+            background: linear-gradient(135deg, #1a0d30 0%, #0d0426 100%);
+            border: 2px solid rgba(255, 107, 53, 0.6);
+            border-radius: 20px;
+            padding: 20px 22px;
+            max-width: 290px;
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 107, 53, 0.2);
+            animation: promo-slide-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .promo-popup.visible {
+            display: block;
+        }
+
+        @keyframes promo-slide-in {
+            from {
+                opacity: 0;
+                transform: translateX(40px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .promo-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 18px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .promo-popup-close:hover {
+            color: white;
+        }
+
+        .promo-popup-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .promo-popup-title {
+            font-size: 14px;
+            font-weight: 900;
+            color: #ff9a6c;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .promo-popup-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .promo-popup-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b35, #f97316);
+            color: #1a0800;
+            border: none;
+            padding: 10px 0;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 18px rgba(255, 107, 53, 0.4);
+        }
+
+        .promo-popup-btn:hover {
+            filter: brightness(1.15);
+            transform: translateY(-2px);
         }
 
         .top-prestige-btn {
@@ -6662,16 +6830,100 @@
         .mobile-gpu-boost .world-container {
             -webkit-overflow-scrolling: touch;
         }
+
+        /* --- MOBILE LANDSCAPE LOCK --- */
+        .orientation-lock {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #050b14, #0d0426);
+            z-index: 99999999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .orientation-lock-icon {
+            font-size: clamp(60px, 20vw, 140px);
+            margin-bottom: clamp(15px, 5vw, 40px);
+            animation: phoneRotate 2.5s infinite ease-in-out;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 159, 0.4));
+        }
+
+        .orientation-lock h2 {
+            font-size: clamp(30px, 9vw, 80px);
+            font-weight: 900;
+            margin: 0 0 20px 0;
+            color: #00ff9f;
+            text-shadow: 0 0 30px rgba(0, 255, 159, 0.6);
+            letter-spacing: 2px;
+        }
+
+        .orientation-lock p {
+            font-size: clamp(16px, 5vw, 45px);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 900px;
+        }
+
+        @keyframes phoneRotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            45% {
+                transform: rotate(-90deg);
+            }
+
+            55% {
+                transform: rotate(-90deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
     </style>
     <script>
         // If the user is on a touch device, enable GPU Boost mode to prevent lag and tap bugs
         if (/Mobi|Android|iPhone|Macintosh/.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
             document.documentElement.classList.add('mobile-gpu-boost');
         }
+
+        // Dedicated Mobile Landscape Lock Logic
+        function checkMobileOrientation() {
+            var lock = document.getElementById('orientationLock');
+            if (!lock) return;
+
+            var isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+            if (isMobile && window.innerHeight > window.innerWidth) {
+                lock.style.setProperty('display', 'flex', 'important');
+            } else {
+                lock.style.setProperty('display', 'none', 'important');
+            }
+        }
+
+        window.addEventListener('resize', checkMobileOrientation);
+        window.addEventListener('orientationchange', checkMobileOrientation);
+        document.addEventListener('DOMContentLoaded', checkMobileOrientation);
+        checkMobileOrientation(); // Initial setup check
     </script>
 </head>
 
 <body class="is-day">
+    <!-- ORIENTATION LOCK OVERLAY -->
+    <div class="orientation-lock" id="orientationLock">
+        <div class="orientation-lock-icon">🔄</div>
+        <h2>Roda o teu ecrã!</h2>
+        <p>Para uma melhor experiência e visibilidade, joga na posição horizontal (paisagem).</p>
+    </div>
     <!-- TUTORIAL OVERLAY -->
     <div class="tutorial-overlay" id="tutorialOverlay">
         <div class="tutorial-card" id="tutorialCard">
@@ -6804,11 +7056,37 @@
 
         <div class="top-divider"></div>
 
+        <!-- GUMROAD SHOP CTA -->
+        <div class="top-group">
+            <a class="top-shop-btn" href="https://salferdev.gumroad.com" target="_blank" rel="noopener" id="shopCta">
+                🛒 LOJA
+            </a>
+            <a class="top-kofi-btn" href="https://ko-fi.com/salfer" target="_blank" rel="noopener" id="kofiCta">
+                ☕ APOIAR
+            </a>
+        </div>
+
+        <div class="top-divider"></div>
+
         <!-- 6. LANGUAGE -->
         <div class="top-group" style="margin-left: 5px;">
             <button class="top-report-btn" onclick="toggleLanguage()" id="langBtn"
                 style="min-width: 45px; padding: 5px 8px;">🇺🇸 EN</button>
         </div>
+    </div>
+
+    <!-- GUMROAD PROMO POPUP -->
+    <div class="promo-popup" id="promoPopup">
+        <button class="promo-popup-close"
+            onclick="document.getElementById('promoPopup').style.display='none'">×</button>
+        <div class="promo-popup-icon">🏡</div>
+        <div class="promo-popup-title">🌱 Produtos Reais da Salfer Co.!</div>
+        <p class="promo-popup-text">Adoraste o jogo? Descobre os nossos projetos de construção sustentável, ferramentas
+            e soluções para a tua casa!</p>
+        <a class="promo-popup-btn" href="https://salferdev.gumroad.com" target="_blank" rel="noopener"
+            onclick="document.getElementById('promoPopup').style.display='none'">
+            Ver Produtos →
+        </a>
     </div>
 
     <!-- ACHIEVEMENTS MODAL -->
@@ -7221,8 +7499,9 @@
     <div class="eco-awareness-modal" id="ecoAwarenessModal">
         <div class="eco-awareness-bg" id="ecoAwarenessBg"></div>
         <div class="eco-awareness-content">
-            <div class="eco-awareness-badge" id="ecoAwarenessBadge">🌍</div>
+            <div class="eco-awareness-badge" id="ecoAwarenessBadge" style="display: none;">🌍</div>
             <div class="eco-awareness-stage" id="ecoAwarenessStage">PUZZLE 1/10 CONCLUÍDO</div>
+            <div class="eco-awareness-main-image" id="ecoAwarenessMainImage"></div>
             <h2 class="eco-awareness-title" id="ecoAwarenessTitle">Terra Azul</h2>
             <div class="eco-awareness-reward" id="ecoAwarenessReward">+12,000 W · +90 XP</div>
             <div class="eco-awareness-fact-box">
@@ -10976,6 +11255,15 @@
             const xpGained = 90 + stageIdx * 30;
 
             bg.style.backgroundImage = `url('${stage.image}')`;
+
+            const mainImg = document.getElementById('ecoAwarenessMainImage');
+            if (mainImg) {
+                mainImg.style.backgroundImage = `url('${stage.image}')`;
+                mainImg.style.animation = 'none';
+                mainImg.offsetHeight; // reflow
+                mainImg.style.animation = 'eco-badge-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+            }
+
             // Re-trigger the badge animation
             badge.style.animation = 'none';
             badge.offsetHeight; // reflow
@@ -11825,6 +12113,15 @@
         setTimeout(() => {
             initTutorial();
         }, 500);
+
+        // --- GUMROAD PROMO POPUP (fires once per session after 3 minutes) ---
+        setTimeout(() => {
+            const popup = document.getElementById('promoPopup');
+            if (popup && !sessionStorage.getItem('promoShown')) {
+                popup.style.display = 'block';
+                sessionStorage.setItem('promoShown', '1');
+            }
+        }, 3 * 60 * 1000); // 3 minutes
 
         // Firebase Backend Integration
         let salferBackend = null;
