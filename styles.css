@@ -74,7 +74,6 @@ button:focus-visible,
 
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-
     *,
     *::before,
     *::after {
@@ -114,172 +113,72 @@ button:focus-visible,
     }
 }
 
-.mobile-nav {
-    display: none;
-}
-
 /* Mobile Large (< 768px) */
 @media (max-width: 768px) {
-    .mobile-nav {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: #0d0426;
-        border-top: 1px solid rgba(191, 90, 242, 0.3);
-        z-index: 2000;
-        height: 65px;
-    }
-
-    .mobile-nav button {
-        flex: 1;
-        background: transparent;
-        border: none;
-        color: rgba(255, 255, 255, 0.5);
-        font-family: inherit;
-        font-weight: 800;
-        font-size: 11px;
-        transition: all 0.3s;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        cursor: pointer;
-    }
-
-    .mobile-nav button.active {
-        color: #00ff9f;
-        background: rgba(0, 255, 159, 0.05);
-        border-top: 3px solid #00ff9f;
-    }
-
-    /* Initial Tab State: Center Tab (Base/Map) */
-    body:not(.show-left):not(.show-right) .left-panel,
-    body:not(.show-left):not(.show-right) .right-panel {
-        display: none !important;
-    }
-
-    /* Left Tab State: Info */
-    body.show-left .left-panel {
-        display: flex !important;
-    }
-
-    body.show-left .world-container,
-    body.show-left .right-panel {
-        display: none !important;
-    }
-
-    /* Right Tab State: Loja */
-    body.show-right .right-panel {
-        display: block !important;
-    }
-
-    body.show-right .world-container,
-    body.show-right .left-panel {
-        display: none !important;
-    }
-
     body {
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
+        grid-template-columns: 1fr;
         overflow-y: auto;
         height: auto;
-        padding-top: 65px;
     }
 
-    .rank-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 999;
-        flex-wrap: wrap;
-        background: var(--bg);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        gap: 5px;
-    }
-
-    .world-container {
-        order: -1;
-        width: 100%;
-        padding: 20px 10px 10px 10px;
-        min-height: 40vh;
+    .panel {
+        border-radius: 0;
+        padding: 20px;
     }
 
     .left-panel,
+    .world-container,
     .right-panel {
+        grid-column: 1 !important;
+        grid-row: auto !important;
         width: 100%;
         border-radius: 0;
     }
 
-    .left-panel {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 15px 10px;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .left-panel .brand {
-        display: none;
-    }
-
-    .core-box {
-        width: 100%;
-        transform: scale(0.9);
-        margin: -30px 0 -10px 0;
-    }
-
-    .left-panel .stat-card {
-        flex: 1 1 30%;
-        padding: 10px 5px;
-        margin-bottom: 0;
-    }
-
-    .left-panel .stat-label {
-        font-size: 10px;
-    }
-
-    .left-panel .stat-value,
-    .left-panel #weatherEffect {
-        font-size: 16px;
-        margin-top: 2px;
-    }
-
-    .quick-actions {
-        width: 100%;
-        justify-content: center;
-    }
-
     .sun {
         right: 5%;
-        transform: translateY(0) scale(0.6);
+        transform: translateY(-80px) scale(0.5);
+    }
+
+    body.is-day .sun {
+        transform: translateY(0) scale(0.7);
+    }
+
+    body.weather-heatwave.is-day .sun {
+        transform: translateY(0) scale(0.85);
     }
 
     .moon {
         left: 5%;
-        transform: translateY(0) scale(0.6);
+        transform: translateY(-80px) scale(0.5) rotate(-20deg);
+    }
+
+    body.is-night .moon {
+        transform: translateY(0) scale(0.7) rotate(0deg);
     }
 
     .top-bar {
         flex-wrap: wrap;
-        padding: 10px;
+        padding: 10px 15px;
         gap: 8px;
+    }
+
+    .top-group {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .map-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 100%;
+        max-width: 400px;
     }
 
     .hub-house-wrapper {
-        transform: scale(1.2);
+        transform: scale(1.4);
+    }
+
+    .brand h2 {
+        font-size: 26px !important;
     }
 
     .modal {
@@ -290,6 +189,14 @@ button:focus-visible,
 
     .shop-grid {
         grid-template-columns: 1fr;
+    }
+
+    .backdrop-filter {
+        backdrop-filter: blur(10px);
+    }
+
+    .panel {
+        backdrop-filter: blur(10px);
     }
 }
 
@@ -594,3 +501,4 @@ body.is-night .stars-container {
         transform: scale(0.8);
     }
 }
+
