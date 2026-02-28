@@ -6610,7 +6610,53 @@
                 padding-top: 60px;
             }
         }
+
+        /* --- MOBILE HYPER-OPTIMIZATION FOR FORCED DESKTOP VIEWPORT --- */
+        .mobile-gpu-boost {
+            --glass: none;
+            /* remove css variable blur */
+        }
+
+        .mobile-gpu-boost * {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            /* Disable CSS transitions on non-transform properties to save GPU */
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease !important;
+        }
+
+        .mobile-gpu-boost .panel,
+        .mobile-gpu-boost .modal {
+            background-color: #0c081e !important;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9) !important;
+            border: 1px solid rgba(0, 255, 159, 0.2) !important;
+        }
+
+        .mobile-gpu-boost .fog,
+        .mobile-gpu-boost .stars-container {
+            display: none !important;
+            /* Disable heavy particle overdraw on mobile */
+        }
+
+        /* Fix the 300ms tap delay and ensure events fire instantly */
+        .mobile-gpu-boost a,
+        .mobile-gpu-boost button,
+        .mobile-gpu-boost [onclick],
+        .mobile-gpu-boost .core-btn,
+        .mobile-gpu-boost .slot,
+        .mobile-gpu-boost .shop-item,
+        .mobile-gpu-boost .hub-house-wrapper,
+        .mobile-gpu-boost .eco-insight-badge {
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+        }
     </style>
+    <script>
+        // If the user is on a touch device, enable GPU Boost mode to prevent lag and tap bugs
+        if (/Mobi|Android|iPhone|Macintosh/.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
+            document.documentElement.classList.add('mobile-gpu-boost');
+        }
+    </script>
 </head>
 
 <body class="is-day">
