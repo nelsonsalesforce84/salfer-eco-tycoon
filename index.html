@@ -6620,8 +6620,6 @@
         .mobile-gpu-boost * {
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
-            /* Disable CSS transitions on non-transform properties to save GPU */
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease !important;
         }
 
         .mobile-gpu-boost .panel,
@@ -6649,6 +6647,12 @@
             touch-action: manipulation !important;
             -webkit-tap-highlight-color: transparent;
             cursor: pointer;
+        }
+
+        .mobile-gpu-boost .left-panel,
+        .mobile-gpu-boost .right-panel,
+        .mobile-gpu-boost .world-container {
+            -webkit-overflow-scrolling: touch;
         }
     </style>
     <script>
@@ -6943,15 +6947,33 @@
         </div>
 
         <div style="margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 15px;">
-            <p style="font-weight: 800;"><span id="shopCreditsLabel">Os teus Créditos Salfer:</span> <span
-                    id="creditBalance" style="color: var(--prestige);">0</span> 💎</p>
-            <button class="top-prestige-btn" id="shopDemoBtn" onclick="simulateCredits()"
-                style="margin-top:10px; width: auto; font-size: 10px;">OBTER CRÉDITOS DEMO</button>
+            <p style="font-weight: 800; margin-bottom: 10px;"><span id="shopCreditsLabel">Os teus Créditos
+                    Salfer:</span> <span id="creditBalance" style="color: var(--prestige);">0</span> 💎</p>
+            <p style="font-size: 11px; opacity: 0.7; margin-bottom: 12px;">Para adquirir mais créditos e apoiar o
+                desenvolvimento do projeto, visita a nossa loja oficial segura e adquire as suas ferramentas
+                sustentáveis.</p>
+            <a href="https://salferdev.gumroad.com" target="_blank" class="btn-prime"
+                style="text-decoration: none; display: inline-block; background: linear-gradient(135deg, #facc15 0%, #f97316 100%); color: #000; font-size: 14px; padding: 12px 25px;">🏪
+                VISITAR LOJA GUMROAD</a>
+            <button class="top-prestige-btn" onclick="openPromoCode()"
+                style="margin-top: 15px; width: auto; font-size: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.2);">INSERIR
+                CÓDIGO PROMOCIONAL</button>
         </div>
 
         <p id="shopBackBtn" onclick="closeShop()"
-            style="margin-top: 20px; cursor: pointer; opacity: 0.5; font-size: 14px;">Voltar ao
-            Jogo</p>
+            style="margin-top: 20px; cursor: pointer; opacity: 0.5; font-size: 14px;">Voltar ao Jogo</p>
+    </div>
+
+    <!-- PROMO CODE OVERLAY -->
+    <div class="modal custom-alert-modal" id="promoCodeModal" style="display: none; z-index: 20002;">
+        <h3 style="color: #00ff9f; margin-bottom: 10px;">CÓDIGO GUMROAD</h3>
+        <p style="font-size: 12px; margin-bottom: 15px; opacity:0.8;">Insere o código de bónus recebido na tua fatura de
+            compra Gumroad para resgatar os teus créditos.</p>
+        <input type="text" id="promoCodeInput" placeholder="EX: SALFER-VIP-100"
+            style="width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid var(--accent); color: white; border-radius: 8px; margin-bottom: 20px; text-transform: uppercase;">
+        <button class="btn-prime" onclick="redeemPromoCode()">RESGATAR</button>
+        <button class="btn-close-red" onclick="document.getElementById('promoCodeModal').style.display='none'"
+            style="margin-top: 10px;">CANCELAR</button>
     </div>
 
     <!-- REFERRAL MODAL -->
@@ -11597,10 +11619,45 @@
             }
         }
 
-        function simulateCredits() {
-            salferCredits += 50;
-            toast(t('demoCredits'));
-            updateUI();
+        function openPromoCode() {
+            document.getElementById('shopModal').style.display = 'none';
+            document.getElementById('promoCodeModal').style.display = 'flex';
+        }
+
+        function redeemPromoCode() {
+            const input = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+            if (!input) {
+                toast("O código introduzido não é válido!");
+                return;
+            }
+
+            // Hardcoded premium codes mapping (In a real app, this goes through a backend)
+            let reward = 0;
+            if (input === 'SALFER-VIP-100' && !hasPromoCode('SALFER-VIP-100')) reward = 100;
+            if (input === 'SALFER-MEGA-500' && !hasPromoCode('SALFER-MEGA-500')) reward = 500;
+            if (input === 'SALFER-LAUNCH' && !hasPromoCode('SALFER-LAUNCH')) reward = 50;
+
+            if (reward > 0) {
+                salferCredits += reward;
+                savePromoCode(input);
+                document.getElementById('promoCodeModal').style.display = 'none';
+                document.getElementById('promoCodeInput').value = '';
+                toast(`Recebeste +${reward} Eco-Créditos Salfer!`);
+                updateUI();
+            } else {
+                toast("O código não é válido ou já foi usado.", "error");
+            }
+        }
+
+        function hasPromoCode(code) {
+            let used = JSON.parse(localStorage.getItem('salferUsedPromoCodes') || '[]');
+            return used.includes(code);
+        }
+
+        function savePromoCode(code) {
+            let used = JSON.parse(localStorage.getItem('salferUsedPromoCodes') || '[]');
+            used.push(code);
+            localStorage.setItem('salferUsedPromoCodes', JSON.stringify(used));
         }
 
 
