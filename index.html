@@ -6617,6 +6617,13 @@
             /* remove css variable blur */
         }
 
+        .mobile-gpu-boost,
+        .mobile-gpu-boost body {
+            height: 100% !important;
+            min-height: 100% !important;
+            /* Fix invisible touch barrier bug caused by 100vh scaling in forced viewport */
+        }
+
         .mobile-gpu-boost * {
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
@@ -6644,7 +6651,6 @@
         .mobile-gpu-boost .shop-item,
         .mobile-gpu-boost .hub-house-wrapper,
         .mobile-gpu-boost .eco-insight-badge {
-            touch-action: manipulation !important;
             -webkit-tap-highlight-color: transparent;
             cursor: pointer;
         }
