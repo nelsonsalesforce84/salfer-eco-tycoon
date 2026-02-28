@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1280">
+    <meta name="viewport" content="width=1280, maximum-scale=1.0, user-scalable=yes">
     <title>Salfer Eco-Tycoon: A Revolução da Casa Sustentável | Premium Game</title>
     <meta name="description"
         content="Constrói o teu império de energia limpa com a Salfer Co. Evolui o teu Hub, domina tecnologias solares e espaciais, e aprende sobre sustentabilidade enquanto conquistas o futuro.">
@@ -6621,6 +6621,8 @@
         .mobile-gpu-boost body {
             height: 100% !important;
             min-height: 100% !important;
+            touch-action: pan-x pan-y !important;
+            /* ONLY allow panning, disable double-tap zoom that breaks clicks */
             /* Fix invisible touch barrier bug caused by 100vh scaling in forced viewport */
         }
 
