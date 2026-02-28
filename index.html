@@ -218,8 +218,73 @@
             }
         }
 
+        .mobile-nav {
+            display: none;
+        }
+
         /* Mobile Large (< 768px) */
         @media (max-width: 768px) {
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #0d0426;
+                border-top: 1px solid rgba(191, 90, 242, 0.3);
+                z-index: 2000;
+                height: 65px;
+            }
+
+            .mobile-nav button {
+                flex: 1;
+                background: transparent;
+                border: none;
+                color: rgba(255, 255, 255, 0.5);
+                font-family: inherit;
+                font-weight: 800;
+                font-size: 11px;
+                transition: all 0.3s;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                cursor: pointer;
+            }
+
+            .mobile-nav button.active {
+                color: #00ff9f;
+                background: rgba(0, 255, 159, 0.05);
+                border-top: 3px solid #00ff9f;
+            }
+
+            /* Initial Tab State: Center Tab (Base/Map) */
+            body:not(.show-left):not(.show-right) .left-panel,
+            body:not(.show-left):not(.show-right) .right-panel {
+                display: none !important;
+            }
+
+            /* Left Tab State: Info */
+            body.show-left .left-panel {
+                display: flex !important;
+            }
+
+            body.show-left .world-container,
+            body.show-left .right-panel {
+                display: none !important;
+            }
+
+            /* Right Tab State: Loja */
+            body.show-right .right-panel {
+                display: block !important;
+            }
+
+            body.show-right .world-container,
+            body.show-right .left-panel {
+                display: none !important;
+            }
+
             body {
                 display: flex;
                 flex-direction: column;
@@ -11900,6 +11965,41 @@
             toast('🎉 Obrigado por instalar o Salfer Eco-Tycoon!');
             if (installBtn) installBtn.style.display = 'none';
         });
+    </script>
+
+    <!-- MOBILE NAVIGATION (ABA INFERIOR) -->
+    <div class="mobile-nav" id="mobileNav">
+        <button onclick="mobileSwitchTab('left')" id="mTabLeft">
+            <span style="font-size:18px;">📊</span> INFO
+        </button>
+        <button onclick="mobileSwitchTab('center')" id="mTabCenter" class="active">
+            <span style="font-size:18px;">🌍</span> BASE
+        </button>
+        <button onclick="mobileSwitchTab('right')" id="mTabRight">
+            <span style="font-size:18px;">🏗️</span> LOJA
+        </button>
+    </div>
+
+    <script>
+        // Lógica de Tabs Mobile
+        function mobileSwitchTab(tabName) {
+            document.body.classList.remove('show-left', 'show-right');
+            document.querySelectorAll('.mobile-nav button').forEach(b => b.classList.remove('active'));
+
+            if (tabName === 'left') {
+                document.body.classList.add('show-left');
+                document.getElementById('mTabLeft').classList.add('active');
+            } else if (tabName === 'right') {
+                document.body.classList.add('show-right');
+                document.getElementById('mTabRight').classList.add('active');
+            } else {
+                // center is default when no class is present
+                document.getElementById('mTabCenter').classList.add('active');
+            }
+
+            // Scroll to top upon switch for better UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 
