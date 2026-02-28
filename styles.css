@@ -74,6 +74,7 @@ button:focus-visible,
 
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -118,68 +119,102 @@ button:focus-visible,
     body {
         display: flex;
         flex-direction: column;
+        overflow-x: hidden;
         overflow-y: auto;
         height: auto;
+        padding-top: 65px;
     }
 
-    .panel {
-        border-radius: 0;
-        padding: 20px;
+    .rank-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        flex-wrap: wrap;
+        background: var(--bg);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        gap: 5px;
+    }
+
+    .world-container {
+        order: -1;
+        width: 100%;
+        padding: 20px 10px 10px 10px;
+        min-height: 40vh;
     }
 
     .left-panel,
-    .world-container,
     .right-panel {
-        grid-column: 1 !important;
-        grid-row: auto !important;
         width: 100%;
         border-radius: 0;
     }
 
+    .left-panel {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 15px 10px;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left-panel .brand {
+        display: none;
+    }
+
+    .core-box {
+        width: 100%;
+        transform: scale(0.9);
+        margin: -30px 0 -10px 0;
+    }
+
+    .left-panel .stat-card {
+        flex: 1 1 30%;
+        padding: 10px 5px;
+        margin-bottom: 0;
+    }
+
+    .left-panel .stat-label {
+        font-size: 10px;
+    }
+
+    .left-panel .stat-value,
+    .left-panel #weatherEffect {
+        font-size: 16px;
+        margin-top: 2px;
+    }
+
+    .quick-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
     .sun {
         right: 5%;
-        transform: translateY(-80px) scale(0.5);
-    }
-
-    body.is-day .sun {
-        transform: translateY(0) scale(0.7);
-    }
-
-    body.weather-heatwave.is-day .sun {
-        transform: translateY(0) scale(0.85);
+        transform: translateY(0) scale(0.6);
     }
 
     .moon {
         left: 5%;
-        transform: translateY(-80px) scale(0.5) rotate(-20deg);
-    }
-
-    body.is-night .moon {
-        transform: translateY(0) scale(0.7) rotate(0deg);
+        transform: translateY(0) scale(0.6);
     }
 
     .top-bar {
         flex-wrap: wrap;
-        padding: 10px 15px;
+        padding: 10px;
         gap: 8px;
-    }
-
-    .top-group {
-        flex-wrap: wrap;
-        justify-content: center;
     }
 
     .map-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 400px;
+        max-width: 100%;
     }
 
     .hub-house-wrapper {
-        transform: scale(1.4);
-    }
-
-    .brand h2 {
-        font-size: 26px !important;
+        transform: scale(1.2);
     }
 
     .modal {
@@ -190,14 +225,6 @@ button:focus-visible,
 
     .shop-grid {
         grid-template-columns: 1fr;
-    }
-
-    .backdrop-filter {
-        backdrop-filter: blur(10px);
-    }
-
-    .panel {
-        backdrop-filter: blur(10px);
     }
 }
 
@@ -502,4 +529,3 @@ body.is-night .stars-container {
         transform: scale(0.8);
     }
 }
-
